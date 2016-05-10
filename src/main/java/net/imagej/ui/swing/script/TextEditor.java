@@ -108,6 +108,7 @@ import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
 import org.scijava.Context;
+import org.scijava.app.AppService;
 import org.scijava.command.CommandService;
 import org.scijava.event.ContextDisposingEvent;
 import org.scijava.event.EventHandler;
@@ -218,6 +219,8 @@ public class TextEditor extends JFrame implements ActionListener,
 	private UIService uiService;
 	@Parameter
 	private PrefService prefService;
+	@Parameter
+	private AppService appService;
 
 	private Map<ScriptLanguage, JRadioButtonMenuItem> languageMenuItems;
 	private JRadioButtonMenuItem noneLanguageItem;
@@ -878,9 +881,11 @@ public class TextEditor extends JFrame implements ActionListener,
 	 * @param templatesMenu the top-level menu to populate
 	 */
 	private void addTemplates(final JMenu templatesMenu) {
+		final File baseDir = appService.getApp().getBaseDirectory();
+
 		for (final String templatePath : TEMPLATE_PATHS) {
 			for (final Map.Entry<String, URL> entry : new TreeMap<>(
-				FileFunctions.findResources(null, templatePath)).entrySet())
+				FileUtils.findResources(null, templatePath, baseDir)).entrySet())
 			{
 				final String key = entry.getKey();
 				final String ext = FileUtils.getExtension(key);
