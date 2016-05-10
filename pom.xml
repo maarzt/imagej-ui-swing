@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>net.imagej</groupId>
 		<artifactId>pom-imagej</artifactId>
-		<version>15.7.0</version>
+		<version>15.6.0</version>
 		<relativePath />
 	</parent>
 
@@ -111,6 +111,8 @@
 
 	<properties>
 		<scijava.jvm.version>1.8</scijava.jvm.version>
+		<scijava-common.version>2.57.0-SNAPSHOT</scijava-common.version>
+		<enforcer.skip>true</enforcer.skip>
 	</properties>
 
 	<repositories>
