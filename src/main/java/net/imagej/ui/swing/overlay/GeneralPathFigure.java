@@ -242,7 +242,7 @@ public class GeneralPathFigure extends AbstractAttributedFigure {
 		}
 	}
 
-    /* -- public methods -- */
+	/* -- public methods -- */
 
 	@SuppressWarnings("null")
 	public synchronized void setGeneralPath(final GeneralPath path) {

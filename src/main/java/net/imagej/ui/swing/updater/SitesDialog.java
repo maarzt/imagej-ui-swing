@@ -239,7 +239,7 @@ public class SitesDialog extends JDialog implements ActionListener {
 						jcomponent.setToolTipText(wrapToolTip(site.getDescription(), site.getMaintainer()));
 					}
 				}
-			    return component;
+				return component;
 			}
 		};
 		table.setColumnSelectionAllowed(false);
