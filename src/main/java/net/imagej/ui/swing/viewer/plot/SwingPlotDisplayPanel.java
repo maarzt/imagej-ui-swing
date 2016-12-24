@@ -34,6 +34,8 @@ package net.imagej.ui.swing.viewer.plot;
 import java.awt.*;
 import javax.swing.*;
 
+import de.erichseifert.gral.graphics.Drawable;
+import de.erichseifert.gral.ui.InteractivePanel;
 import net.imagej.plot.AbstractPlot;
 
 import org.jfree.chart.ChartPanel;
@@ -67,7 +69,7 @@ public class SwingPlotDisplayPanel extends JPanel implements PlotDisplayPanel {
 		AbstractPlot plot = display.get(0);
 		prefferedSize = new Dimension(plot.getPreferredWidth(), plot.getPreferredHeight());
 		try {
-			add(makeJFreeChartPanel(plot));
+			add(makeGralChartPanel(plot));
 		} catch (ConverterFailedException e) {
 			add(new JLabel(e.getMessage()));
 		}
@@ -80,6 +82,14 @@ public class SwingPlotDisplayPanel extends JPanel implements PlotDisplayPanel {
 			throw new ConverterFailedException("No sci-java  plugin of type Converter<" +
 				plot.getClass().getName() + ", JFreeChart> found.");
 		return new ChartPanel(chart);
+	}
+
+	JPanel makeGralChartPanel(AbstractPlot plot) {
+		final Drawable chart = convertService.convert(plot, Drawable.class);
+		if(chart == null)
+			throw new ConverterFailedException("No sci-java  plugin of type Converter<" +
+					plot.getClass().getName() + ", Drawable> found.");
+		return new InteractivePanel(chart);
 	}
 
 	private class ConverterFailedException extends RuntimeException {
